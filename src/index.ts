@@ -10,6 +10,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { registerTools } from "./tools/index.js";
+import { applyDollarKeyFix } from "./tools/_dollar-key-fix.js";
 import { registerResources } from "./resources/index.js";
 import { registerPrompts } from "./prompts/index.js";
 
@@ -25,6 +26,7 @@ async function main(): Promise<void> {
   });
 
   // 2. Register tool handlers  (src/tools/index.ts)
+  applyDollarKeyFix(server); // rename "$top"-style settings so Claude accepts them
   registerTools(server);
 
 
